@@ -1,14 +1,17 @@
 package pfa.technipixl.pingfest.network
 
+import pfa.technipixl.pingfest.model.FestResult
+import pfa.technipixl.pingfest.model.Participator
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.http.GET
+import retrofit2.http.Query
 
-abstract class BaseApiService {
-    val baseUrl = ""
-    val apiKey = ""
+interface BaseApiService {
+  @GET("Fest")
+  suspend fun getFest():Response<FestResult>
 
-    val retrofit = Retrofit.Builder()
-        .baseUrl(baseUrl)
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
+    @GET("qqch/unePersonne")
+    suspend fun getParticipator():Response<Participator>
 }
