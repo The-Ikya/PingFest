@@ -1,8 +1,9 @@
 package pfa.technipixl.pingfest.network
 
 import okhttp3.OkHttpClient
-import pfa.technipixl.pingfest.model.FestResponse
-import pfa.technipixl.pingfest.model.FestResult
+import pfa.technipixl.pingfest.model.FestResults
+import pfa.technipixl.pingfest.model.Fests
+
 import pfa.technipixl.pingfest.model.Participator
 import retrofit2.Response
 import retrofit2.Retrofit
@@ -25,7 +26,7 @@ public final class FestApiServiceImpl : BaseApiService {
             .build()
     }
 
-    override suspend fun getFest(): Response<FestResponse> {
+    override suspend fun getFest(): Response<Fests> {
         return getRetrofit().create(BaseApiService::class.java).getFest()
     }
 
