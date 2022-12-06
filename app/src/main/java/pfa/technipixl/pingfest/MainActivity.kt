@@ -11,10 +11,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import pfa.technipixl.pingfest.ui.theme.PingFestTheme
+import pfa.technipixl.pingfest.viewmodels.DashboardViewModel
 
 class MainActivity : ComponentActivity() {
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
+
+		//TEST REMOVE THIS
+
+		val vm = DashboardViewModel()
+		vm.fetchParties()
+
+
 		setContent {
 			PingFestTheme {
 				// A surface container using the 'background' color from the theme
