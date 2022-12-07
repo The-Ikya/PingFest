@@ -122,7 +122,7 @@ fun FilterScreen(
 
 @Preview
 @Composable
-fun ConnectionScreenPreview() {
+fun FilterScreenPreview() {
     FilterScreen()
 }
 
