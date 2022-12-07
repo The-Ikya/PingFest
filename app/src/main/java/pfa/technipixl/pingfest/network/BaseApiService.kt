@@ -1,16 +1,15 @@
 package pfa.technipixl.pingfest.network
 
 
-import pfa.technipixl.pingfest.model.FestResults
 import pfa.technipixl.pingfest.model.Fests
-import pfa.technipixl.pingfest.model.Participator
+import pfa.technipixl.pingfest.model.ParticipatorResult
 import retrofit2.Response
 import retrofit2.http.GET
 
 interface BaseApiService {
   @GET("fest")
   suspend fun getFest():Response<Fests>
+  @GET("participator")
+  suspend fun getParticipator():Response<ParticipatorResult>
 
-    @GET("qqch/unePersonne")
-    suspend fun getParticipator():Response<Participator>
 }
