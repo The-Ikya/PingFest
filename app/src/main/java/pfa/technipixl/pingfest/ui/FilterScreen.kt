@@ -27,6 +27,9 @@ fun FilterScreen(
     val (selectedOption, onOptionSelected) = remember { mutableStateOf(radioOptions[1]) }
     val context = LocalContext.current
     Column(modifier = Modifier) {
+        Image(painterResource(id = R.drawable.ic_launcher_background),
+            contentDescription = " Genre de musique ",
+            modifier = Modifier.size(20.dp))
         Text(
             text = "Distance",
             fontWeight = FontWeight.Bold
