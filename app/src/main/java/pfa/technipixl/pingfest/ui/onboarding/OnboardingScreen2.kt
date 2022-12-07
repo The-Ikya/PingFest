@@ -1,6 +1,11 @@
 package pfa.technipixl.pingfest.ui.onboarding
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Place
+import androidx.compose.material3.ElevatedButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -31,14 +36,30 @@ fun OnboardingScreen2(modifier: Modifier = Modifier) {
 
 		Column(
 			modifier = Modifier
-				.fillMaxSize()
-				.padding(horizontal = 15.dp),
+				.padding(horizontal = 15.dp)
+				.padding(top = 50.dp),
 			verticalArrangement = Arrangement.SpaceEvenly
 		) {
 			OnboardingDescriptionText(
-				title = "Des événements proches de toi",
+				title = "Des événements toujours proches de toi",
 				description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
 			)
+
+			Spacer(Modifier.weight(1f))
+
+			ElevatedButton(
+				modifier = Modifier
+					.fillMaxWidth(),
+				onClick = {
+					// TODO
+				}
+			) {
+				Icon(
+					imageVector = Icons.Filled.Place,
+					contentDescription = null
+				)
+				Text("Autoriser la localisation")
+			}
 		}
 	}
 }

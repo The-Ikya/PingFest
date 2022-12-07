@@ -13,7 +13,6 @@ import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
 import pfa.technipixl.pingfest.ui.onboarding.OnboardingDescriptionText
 
-
 @Composable
 fun OnboardingScreen1(modifier: Modifier = Modifier) {
 	Column(
@@ -33,8 +32,8 @@ fun OnboardingScreen1(modifier: Modifier = Modifier) {
 
 		Column(
 			modifier = Modifier
-				.fillMaxSize()
-				.padding(horizontal = 15.dp),
+				.padding(horizontal = 15.dp)
+				.padding(top = 50.dp),
 			verticalArrangement = Arrangement.SpaceEvenly
 		) {
 			OnboardingDescriptionText(

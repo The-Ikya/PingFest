@@ -7,8 +7,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -31,27 +31,27 @@ fun OnboardingNavigation(
 
 	Column(
 		modifier = modifier
-			.fillMaxSize()
+			.fillMaxSize(),
 	) {
+		OnboardingPageBar(
+			page = pagerState.currentPage
+		)
 		HorizontalPager(count = 3, state = pagerState) { page ->
+			val innerModifier = Modifier
+				//.padding(top = 50.dp)
+				.fillMaxWidth()
+				.fillMaxHeight(0.9f)
+
 			when(page) {
 				0 -> OnboardingScreen1(
-					modifier = Modifier
-						.fillMaxWidth()
-						.fillMaxHeight(0.9f)
+					modifier = innerModifier
 				)
 				1 -> OnboardingScreen2(
-					Modifier
-						.fillMaxWidth()
-						.fillMaxHeight(0.9f)
+					modifier = innerModifier
 				)
 				else -> OnboardingScreen1()
 			}
 		}
-		OnboardingPageBar(
-			modifier = Modifier.padding(horizontal = 20.dp),
-			page = pagerState.currentPage
-		)
 	}
 }
 
@@ -62,7 +62,8 @@ fun OnboardingPageBar(
 ) {
 	Row(
 		modifier = modifier
-			.fillMaxWidth(),
+			.fillMaxWidth()
+			.padding(horizontal = 25.dp, vertical = 10.dp),
 		horizontalArrangement = Arrangement.SpaceBetween,
 		verticalAlignment = Alignment.CenterVertically
 	) {
@@ -71,9 +72,9 @@ fun OnboardingPageBar(
 				Indicators(size = 3, index = page)
 			}
 		}
-		OutlinedButton(
+		TextButton(
 			onClick = {
-
+				// TODO
 			}
 		) {
 			Text(text = "Skip")
