@@ -17,11 +17,15 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.ramcosta.composedestinations.DestinationsNavHost
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import pfa.technipixl.pingfest.NavGraphs
 import pfa.technipixl.pingfest.R
 
-
+@Destination
 @Composable
-fun FilterScreen(
+fun FilterScreen(navigator: DestinationsNavigator,
     modifier: Modifier = Modifier,
 ) {
     var sliderPosition by remember { mutableStateOf(0f) }
@@ -123,6 +127,6 @@ fun FilterScreen(
 @Preview
 @Composable
 fun ConnectionScreenPreview() {
-    FilterScreen()
+    //FilterScreen()
 }
 

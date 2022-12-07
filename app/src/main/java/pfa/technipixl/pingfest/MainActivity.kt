@@ -23,6 +23,7 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.ramcosta.composedestinations.navigation.EmptyDestinationsNavigator.navigate
 import com.ramcosta.composedestinations.spec.NavGraphSpec
 import pfa.technipixl.pingfest.destinations.GreetingDestination
+import pfa.technipixl.pingfest.ui.theme.FilterScreen
 import pfa.technipixl.pingfest.ui.theme.PingFestTheme
 import pfa.technipixl.pingfest.viewmodels.DashboardViewModel
 
@@ -46,7 +47,7 @@ fun Greeting(navigator: DestinationsNavigator) {
 }
 
 @Composable
-fun NavBar() {
+fun NavBar(navigator: DestinationsNavigator) {
 	NavigationBar {
 		var selectedItem by remember { mutableStateOf(0) }
 		NavigationBarItem(
@@ -71,7 +72,10 @@ fun NavBar() {
 			icon = { Icon(Icons.Filled.Settings, contentDescription = "Settings") },
 			label = { Text("Settings") },
 			selected = selectedItem == 3,
-			onClick = { selectedItem = 3}
+			onClick = { selectedItem = 3
+					  //navigator.navigate(FilterScreenDestination())
+					  },
+
 		)
 	}
 }
@@ -79,5 +83,5 @@ fun NavBar() {
 @Composable
 @Preview
 fun TabBarPrev() {
-	NavBar()
+	//NavBar()
 }
