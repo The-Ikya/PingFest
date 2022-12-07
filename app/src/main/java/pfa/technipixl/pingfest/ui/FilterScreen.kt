@@ -5,6 +5,8 @@ import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.selection.selectable
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowRight
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -84,10 +86,10 @@ fun FilterScreen(
                    text = "Genre de musique",
                    color = Color.Black
                )
-               Image(
-                   painterResource(id = R.drawable.ic_baseline_play_arrow_24),
+               Icon(
+                   imageVector = Icons.Filled.ArrowRight,
                    contentDescription = " Genre de musique ",
-                   modifier = Modifier.size(20.dp)
+                   tint = Color.Black
 
                )
            }
@@ -103,10 +105,10 @@ fun FilterScreen(
                    text = "Trier les événements",
                    color = Color.Black
                )
-               Image(
-                   painterResource(id = R.drawable.ic_baseline_play_arrow_24),
+               Icon(
+                   imageVector = Icons.Filled.ArrowRight,
                    contentDescription = " Genre de musique ",
-                   modifier = Modifier.size(20.dp)
+                   tint = Color.Black
                )
            }
 
