@@ -1,16 +1,20 @@
 package pfa.technipixl.pingfest.network
 
 import okhttp3.OkHttpClient
-import pfa.technipixl.pingfest.model.FestResults
 import pfa.technipixl.pingfest.model.Fests
+import pfa.technipixl.pingfest.model.ParticipatorResult
 
-import pfa.technipixl.pingfest.model.Participator
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 public final class FestApiServiceImpl : BaseApiService {
+
+    companion object {
+        private const val BASEURL = "http://10.0.2.2:3001/"
+    }
+
     private fun getRetrofit(): Retrofit {
 
         val okBuilder = OkHttpClient().newBuilder().apply {
@@ -20,7 +24,7 @@ public final class FestApiServiceImpl : BaseApiService {
             writeTimeout(120, TimeUnit.SECONDS)
         }
         return Retrofit.Builder()
-            .baseUrl(BASEURL)
+            .baseUrl(Companion.BASEURL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(okBuilder.build())
             .build()
@@ -30,8 +34,10 @@ public final class FestApiServiceImpl : BaseApiService {
         return getRetrofit().create(BaseApiService::class.java).getFest()
     }
 
-    override suspend fun getParticipator(): Response<Participator> {
+    override suspend fun getParticipator(): Response<ParticipatorResult> {
         return getRetrofit().create(BaseApiService::class.java).getParticipator()
     }
+
+
 
 }

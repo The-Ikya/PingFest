@@ -29,4 +29,20 @@ class DashboardViewModel : ViewModel() {
         }
 
     }
+
+    fun fetchParticipators(){
+        CoroutineScope(Dispatchers.IO).launch {
+            val response = service.getParticipator()
+
+            withContext(Dispatchers.Main) {
+                if (response.isSuccessful){
+                    response.body()?.results?.forEach {
+                        Log.d("Participator", "getParticipator")
+                    }
+                } else {
+                    Log.d("Participator", "Error")
+                }
+            }
+        }
+    }
 }
