@@ -1,4 +1,4 @@
-package pfa.technipixl.pingfest.ui
+package pfa.technipixl.pingfest.ui.onboarding
 
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateDpAsState
@@ -6,11 +6,10 @@ import androidx.compose.animation.core.spring
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -18,38 +17,67 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.airbnb.lottie.compose.LottieAnimation
-import com.airbnb.lottie.compose.LottieCompositionSpec
-import com.airbnb.lottie.compose.LottieConstants
-import com.airbnb.lottie.compose.rememberLottieComposition
+import com.google.accompanist.pager.ExperimentalPagerApi
+import com.google.accompanist.pager.HorizontalPager
+import com.google.accompanist.pager.rememberPagerState
+import pfa.technipixl.pingfest.ui.OnboardingScreen1
 
+@OptIn(ExperimentalPagerApi::class)
 @Composable
-fun OnboardingScreen1(modifier: Modifier = Modifier) {
+fun OnboardingNavigation(
+	modifier: Modifier = Modifier
+) {
+	val pagerState = rememberPagerState()
+
 	Column(
 		modifier = modifier
-			.fillMaxWidth()
-			.fillMaxHeight()
-			.padding(horizontal = 10.dp),
-		verticalArrangement = Arrangement.SpaceEvenly
+			.fillMaxSize()
 	) {
-		Box(
-			modifier = Modifier
-				.fillMaxWidth()
-				.fillMaxHeight(0.3f),
-			contentAlignment = Alignment.Center
-		) {
-			val composition by rememberLottieComposition(
-				spec = LottieCompositionSpec.Url("https://assets6.lottiefiles.com/packages/lf20_6aYlBl.json")
-			)
-			LottieAnimation(composition = composition, iterations = LottieConstants.IterateForever)
+		HorizontalPager(count = 3, state = pagerState) { page ->
+			when(page) {
+				0 -> OnboardingScreen1(
+					modifier = Modifier
+						.fillMaxWidth()
+						.fillMaxHeight(0.9f)
+				)
+				1 -> OnboardingScreen2(
+					Modifier
+						.fillMaxWidth()
+						.fillMaxHeight(0.9f)
+				)
+				else -> OnboardingScreen1()
+			}
 		}
-
-		OnboardingDescriptionText(
-			title = "Bienvenue dans PingFest !",
-			description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+		OnboardingPageBar(
+			modifier = Modifier.padding(horizontal = 20.dp),
+			page = pagerState.currentPage
 		)
+	}
+}
 
-		OnboardingPageBar()
+@Composable
+fun OnboardingPageBar(
+	modifier: Modifier = Modifier,
+	page: Int
+) {
+	Row(
+		modifier = modifier
+			.fillMaxWidth(),
+		horizontalArrangement = Arrangement.SpaceBetween,
+		verticalAlignment = Alignment.CenterVertically
+	) {
+		Box {
+			repeat(3) {
+				Indicators(size = 3, index = page)
+			}
+		}
+		OutlinedButton(
+			onClick = {
+
+			}
+		) {
+			Text(text = "Skip")
+		}
 	}
 }
 
@@ -68,39 +96,14 @@ fun OnboardingDescriptionText(
 			style = MaterialTheme.typography.headlineMedium,
 			minLines = 2, maxLines = 2,
 			textAlign = TextAlign.Center,
+			modifier = Modifier.padding(vertical = 15.dp)
 		)
 		Text(
 			text = description,
 			style = MaterialTheme.typography.bodyLarge,
 			minLines = 6, maxLines = 6,
-			textAlign = TextAlign.Center,
-			modifier = Modifier.padding(top = 10.dp)
+			textAlign = TextAlign.Center
 		)
-	}
-}
-
-@Composable
-fun OnboardingPageBar(
-	modifier: Modifier = Modifier
-) {
-	Row(
-		modifier = modifier
-			.fillMaxWidth(),
-		horizontalArrangement = Arrangement.SpaceBetween,
-		verticalAlignment = Alignment.CenterVertically
-	) {
-		Box {
-			repeat(3) {
-				Indicators(size = 3, index = 0)
-			}
-		}
-		Button(
-			onClick = {
-
-			}
-		) {
-			Text(text = "Skip")
-		}
 	}
 }
 
@@ -139,6 +142,6 @@ fun Indicator(isSelected: Boolean) {
 
 @Preview
 @Composable
-fun OnboardingScreen1Preview() {
-	OnboardingScreen1()
+fun OnboardingNavigationPreview() {
+	OnboardingNavigation()
 }
