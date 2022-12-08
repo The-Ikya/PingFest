@@ -155,10 +155,7 @@ fun GenreDialog(onDismiss: () -> Unit){
     }
             Dialog(
                 content = {
-                    Button(
-                        onClick = { },
-                        colors = ButtonDefaults.buttonColors(containerColor = Color.White)
-                    ) {
+                    Surface() {
                         Row(
                             horizontalArrangement = Arrangement.SpaceBetween,
                             modifier = Modifier.fillMaxWidth()
@@ -172,6 +169,7 @@ fun GenreDialog(onDismiss: () -> Unit){
                             })
                         }
                     }
+
                 }, onDismissRequest = { onDismiss() },
                 properties = DialogProperties(
                     dismissOnClickOutside = true,
