@@ -41,7 +41,7 @@ fun FilterScreenContent(
     Column(modifier = Modifier) {
 
         if(isDialogShown){
-            GenreDialog()
+            GenreDialog(onDismiss = { isDialogShown = false})
         }
 
         Image(painterResource(id = R.drawable.ic_launcher_background),
@@ -149,47 +149,41 @@ fun FilterScreen(navigator: DestinationsNavigator, modifier: Modifier = Modifier
 
 
 @Composable
-fun GenreDialog(){
+fun GenreDialog(onDismiss: () -> Unit){
     var rockBox: Boolean by remember {
         mutableStateOf(true)
     }
-    var openDialog: Boolean by remember {
-        mutableStateOf(true)
-    }
-
-    val context =  LocalContext.current
-    if(openDialog) {
-        Dialog(
-            content = {
-            Button(
-                onClick = { },
-                colors = ButtonDefaults.buttonColors(containerColor = Color.White)
-            ) {
-                Row(
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Text(
-                        text = "Rock",
-                        color = Color.Black
-                    )
-                    Checkbox(checked = rockBox, onCheckedChange = {
-                        rockBox = it
-                    })
-                }
-            }
-        },onDismissRequest = { !openDialog},
-            properties = DialogProperties(
-            dismissOnClickOutside = true,
-            dismissOnBackPress = true
-        ))
-    }
+            Dialog(
+                content = {
+                    Button(
+                        onClick = { },
+                        colors = ButtonDefaults.buttonColors(containerColor = Color.White)
+                    ) {
+                        Row(
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Text(
+                                text = "Rock",
+                                color = Color.Black
+                            )
+                            Checkbox(checked = rockBox, onCheckedChange = {
+                                rockBox = it
+                            })
+                        }
+                    }
+                }, onDismissRequest = { onDismiss() },
+                properties = DialogProperties(
+                    dismissOnClickOutside = true,
+                    dismissOnBackPress = true
+                )
+            )
 }
 
 @Preview
 @Composable
 fun ConnectionScreenPreview() {
     //FilterScreen()
-    GenreDialog()
+    GenreDialog({})
 }
 
