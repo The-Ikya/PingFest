@@ -16,9 +16,20 @@ import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.rememberMultiplePermissionsState
 
+@OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun OnboardingScreen2(modifier: Modifier = Modifier) {
+
+	val geoPerms = rememberMultiplePermissionsState(
+		permissions = listOf(
+			android.Manifest.permission.ACCESS_COARSE_LOCATION,
+			android.Manifest.permission.ACCESS_FINE_LOCATION
+		)
+	)
+
 	Column(
 		modifier = modifier,
 	) {
@@ -51,7 +62,7 @@ fun OnboardingScreen2(modifier: Modifier = Modifier) {
 				modifier = Modifier
 					.fillMaxWidth(),
 				onClick = {
-					// TODO
+					geoPerms.launchMultiplePermissionRequest()
 				}
 			) {
 				Icon(
@@ -66,6 +77,6 @@ fun OnboardingScreen2(modifier: Modifier = Modifier) {
 
 @Preview
 @Composable
-fun OnboardingScreen1Preview() {
+fun OnboardingScreen2Preview() {
 	OnboardingScreen2()
 }

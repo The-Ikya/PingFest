@@ -49,8 +49,11 @@ fun OnboardingNavigation(
 				1 -> OnboardingScreen2(
 					modifier = innerModifier
 				)
-				else -> OnboardingScreen1()
+				else -> OnboardingScreen3(
+					modifier = innerModifier
+				)
 			}
+
 		}
 	}
 }
