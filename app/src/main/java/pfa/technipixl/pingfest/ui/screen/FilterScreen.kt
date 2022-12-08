@@ -1,4 +1,4 @@
-package pfa.technipixl.pingfest.ui.theme
+package pfa.technipixl.pingfest.ui.screen
 
 
 import android.widget.Toast
@@ -17,11 +17,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.ramcosta.composedestinations.DestinationsNavHost
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import pfa.technipixl.pingfest.NavBar
-import pfa.technipixl.pingfest.NavGraphs
 import pfa.technipixl.pingfest.R
 
 @Composable
@@ -139,7 +137,7 @@ fun FilterScreen(navigator: DestinationsNavigator, modifier: Modifier = Modifier
 
 @Preview
 @Composable
-fun ConnectionScreenPreview() {
-    //FilterScreen()
+fun FilterScreenContentPreview() {
+    FilterScreenContent()
 }
 
