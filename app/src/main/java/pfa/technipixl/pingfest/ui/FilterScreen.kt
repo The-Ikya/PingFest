@@ -18,6 +18,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
 import com.ramcosta.composedestinations.DestinationsNavHost
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
@@ -149,27 +150,40 @@ fun FilterScreen(navigator: DestinationsNavigator, modifier: Modifier = Modifier
 
 @Composable
 fun GenreDialog(){
-    val context =  LocalContext.current
-    Dialog(content = {
-        Button(
-            onClick = {  },
-            colors = ButtonDefaults.buttonColors(containerColor = Color.White)
-        )  {
-            Row(horizontalArrangement = Arrangement.SpaceBetween,
-                modifier = Modifier.fillMaxWidth()) {
-                Text(
-                    text = "Trier les événements",
-                    color = Color.Black
-                )
-                Icon(
-                    imageVector = Icons.Filled.ArrowRight,
-                    contentDescription = " Genre de musique ",
-                    tint = Color.Black
-                )
-            }
+    var rockBox: Boolean by remember {
+        mutableStateOf(true)
+    }
+    var openDialog: Boolean by remember {
+        mutableStateOf(true)
+    }
 
-        }
-    }, onDismissRequest = {Toast.makeText(context, "This is a Toast. Yay!", Toast.LENGTH_LONG).show()})
+    val context =  LocalContext.current
+    if(openDialog) {
+        Dialog(
+            content = {
+            Button(
+                onClick = { },
+                colors = ButtonDefaults.buttonColors(containerColor = Color.White)
+            ) {
+                Row(
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(
+                        text = "Rock",
+                        color = Color.Black
+                    )
+                    Checkbox(checked = rockBox, onCheckedChange = {
+                        rockBox = it
+                    })
+                }
+            }
+        },onDismissRequest = { !openDialog},
+            properties = DialogProperties(
+            dismissOnClickOutside = true,
+            dismissOnBackPress = true
+        ))
+    }
 }
 
 @Preview
