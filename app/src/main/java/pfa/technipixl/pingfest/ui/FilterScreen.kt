@@ -17,6 +17,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
 import com.ramcosta.composedestinations.DestinationsNavHost
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
@@ -28,11 +29,20 @@ import pfa.technipixl.pingfest.R
 fun FilterScreenContent(
     modifier: Modifier = Modifier
 ) {
+    var isDialogShown by remember {
+        mutableStateOf(false)
+    }
+
     var sliderPosition by remember { mutableStateOf(0f) }
     val radioOptions = listOf("0 à 150", "150 à 300", "300 à 700", "Plus de 750")
     val (selectedOption, onOptionSelected) = remember { mutableStateOf(radioOptions[1]) }
     val context = LocalContext.current
     Column(modifier = Modifier) {
+
+        if(isDialogShown){
+            GenreDialog()
+        }
+
         Image(painterResource(id = R.drawable.ic_launcher_background),
             contentDescription = " Genre de musique ",
             modifier = Modifier.size(20.dp))
@@ -80,7 +90,7 @@ fun FilterScreenContent(
         }
         Button(
             modifier =  Modifier.align(Alignment.Start),
-            onClick = { Toast.makeText(context, "This is a Toast. Yay!", Toast.LENGTH_LONG).show() },
+            onClick = { isDialogShown = true },
             colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent)
         )  {
            Row(horizontalArrangement = Arrangement.SpaceBetween,
@@ -137,9 +147,35 @@ fun FilterScreen(navigator: DestinationsNavigator, modifier: Modifier = Modifier
 }
 
 
+@Composable
+fun GenreDialog(){
+    val context =  LocalContext.current
+    Dialog(content = {
+        Button(
+            onClick = {  },
+            colors = ButtonDefaults.buttonColors(containerColor = Color.White)
+        )  {
+            Row(horizontalArrangement = Arrangement.SpaceBetween,
+                modifier = Modifier.fillMaxWidth()) {
+                Text(
+                    text = "Trier les événements",
+                    color = Color.Black
+                )
+                Icon(
+                    imageVector = Icons.Filled.ArrowRight,
+                    contentDescription = " Genre de musique ",
+                    tint = Color.Black
+                )
+            }
+
+        }
+    }, onDismissRequest = {Toast.makeText(context, "This is a Toast. Yay!", Toast.LENGTH_LONG).show()})
+}
+
 @Preview
 @Composable
 fun ConnectionScreenPreview() {
     //FilterScreen()
+    GenreDialog()
 }
 
