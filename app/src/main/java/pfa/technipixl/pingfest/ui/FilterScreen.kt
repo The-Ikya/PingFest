@@ -17,12 +17,16 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.ramcosta.composedestinations.DestinationsNavHost
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import pfa.technipixl.pingfest.NavBar
+import pfa.technipixl.pingfest.NavGraphs
 import pfa.technipixl.pingfest.R
 
-
 @Composable
-fun FilterScreen(
-    modifier: Modifier = Modifier,
+fun FilterScreenContent(
+    modifier: Modifier = Modifier
 ) {
     var sliderPosition by remember { mutableStateOf(0f) }
     val radioOptions = listOf("0 à 150", "150 à 300", "300 à 700", "Plus de 750")
@@ -119,10 +123,23 @@ fun FilterScreen(
 
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
+@Destination
+@Composable
+fun FilterScreen(navigator: DestinationsNavigator, modifier: Modifier = Modifier){
+    Scaffold(
+        bottomBar = {
+            NavBar(navigator)
+        }
+    ) {
+        FilterScreenContent(modifier = modifier.padding(it))
+    }
+}
+
 
 @Preview
 @Composable
 fun ConnectionScreenPreview() {
-    FilterScreen()
+    //FilterScreen()
 }
 
