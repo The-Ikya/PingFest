@@ -17,16 +17,29 @@ import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import pfa.technipixl.pingfest.destinations.FilterScreenDestination
 import pfa.technipixl.pingfest.destinations.GreetingDestination
+import pfa.technipixl.pingfest.model.AppUser
+import pfa.technipixl.pingfest.ui.onboarding.OnboardingNavigation
 import pfa.technipixl.pingfest.ui.theme.PingFestTheme
 
 class MainActivity : ComponentActivity() {
+
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 
+		val sharedPreferences = applicationContext
+			.getSharedPreferences(AppUser.SHARED_PREFS, MODE_PRIVATE)
+		val firstTimeOpening = sharedPreferences.getBoolean(AppUser.FIRST_TIME_OPENING, true)
+
 		setContent {
 			PingFestTheme {
-				// Navigation
-				DestinationsNavHost(navGraph = NavGraphs.root)
+
+				if (firstTimeOpening) {
+					OnboardingNavigation()
+				}
+				else {
+					// Navigation
+					DestinationsNavHost(navGraph = NavGraphs.root)
+				}
 			}
 		}
 	}
