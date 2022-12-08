@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "780960017397",
+    "project_id": "pingfest-a2bbb",
+    "storage_bucket": "pingfest-a2bbb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:780960017397:android:cfb1482119e97b7fa8cebc",
+        "android_client_info": {
+          "package_name": "pfa.technipixl.pingfest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "780960017397-je7cs1uh7d4oe7blegbuvpiltnkl17f4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyChGfDbIey4ARga0HFEaWS6SGUcUHIxVa8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "780960017397-je7cs1uh7d4oe7blegbuvpiltnkl17f4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
