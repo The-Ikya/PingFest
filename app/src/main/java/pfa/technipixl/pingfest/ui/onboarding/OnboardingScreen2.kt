@@ -33,17 +33,10 @@ fun OnboardingScreen2(modifier: Modifier = Modifier) {
 	Column(
 		modifier = modifier,
 	) {
-		Box(
-			modifier = Modifier
-				.fillMaxWidth()
-				.fillMaxHeight(0.3f),
-			contentAlignment = Alignment.Center
-		) {
-			val composition by rememberLottieComposition(
-				spec = LottieCompositionSpec.Url("https://assets5.lottiefiles.com/packages/lf20_6sxyjyjj.json")
-			)
-			LottieAnimation(composition = composition, iterations = LottieConstants.IterateForever)
-		}
+		LottieAnimationFrom(
+			modifier = Modifier.fillMaxHeight(0.3f),
+			url = "https://assets5.lottiefiles.com/packages/lf20_6sxyjyjj.json"
+		)
 
 		Column(
 			modifier = Modifier
