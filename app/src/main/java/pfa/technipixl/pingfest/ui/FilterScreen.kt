@@ -3,8 +3,12 @@ package pfa.technipixl.pingfest.ui.theme
 
 import android.widget.Toast
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.gestures.Orientation
+import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.selectable
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowRight
 import androidx.compose.material3.*
@@ -175,57 +179,61 @@ fun GenreDialog(onDismiss: () -> Unit){
                     Surface() {
                         Column(
                             verticalArrangement = Arrangement.SpaceBetween,
-                            modifier = Modifier.fillMaxWidth()
+                            modifier = Modifier
+                                .fillMaxWidth()
                         ) {
+                            ScrollableTabRow(selectedTabIndex = 1, Modifier.verticalScroll(
+                                rememberScrollState())) {
+                                Text(
+                                    text = MusicGenre.Country.name,
+                                    color = Color.Black,
+                                )
+                                Checkbox(checked = countryBox,
+                                    onCheckedChange = {
+                                        countryBox = it
+                                    })
+                                Text(
+                                    text = MusicGenre.Disco.name,
+                                    color = Color.Black
+                                )
+                                Checkbox(checked = discoBox,
+                                    onCheckedChange = {
+                                        discoBox = it
+                                    })
+                                Text(
+                                    text = MusicGenre.Electro.name,
+                                    color = Color.Black
+                                )
+                                Checkbox(checked = electroBox,
+                                    onCheckedChange = {
+                                        electroBox = it
+                                    })
+                                Text(
+                                    text = MusicGenre.Hiphop.name,
+                                    color = Color.Black
+                                )
+                                Checkbox(checked = hiphopBox,
+                                    onCheckedChange = {
+                                        hiphopBox = it
+                                    })
+                                Text(
+                                    text = MusicGenre.Pop.name,
+                                    color = Color.Black
+                                )
+                                Checkbox(checked = popBox,
+                                    onCheckedChange = {
+                                        popBox = it
+                                    })
+                                Text(
+                                    text = MusicGenre.Rock.name,
+                                    color = Color.Black
+                                )
+                                Checkbox(checked = rockBox,
+                                    onCheckedChange = {
+                                        rockBox = it
+                                    })
+                            }
 
-                            Text(
-                                text = MusicGenre.Country.name,
-                                color = Color.Black,
-                            )
-                            Checkbox(checked = countryBox,
-                                onCheckedChange = {
-                                countryBox = it
-                            })
-                            Text(
-                                text = MusicGenre.Disco.name,
-                                color = Color.Black
-                            )
-                            Checkbox(checked = discoBox,
-                                onCheckedChange = {
-                                discoBox = it
-                            })
-                            Text(
-                                text = MusicGenre.Electro.name,
-                                color = Color.Black
-                            )
-                            Checkbox(checked = electroBox,
-                                onCheckedChange = {
-                                electroBox = it
-                            })
-                            Text(
-                                text = MusicGenre.Hiphop.name,
-                                color = Color.Black
-                            )
-                            Checkbox(checked = hiphopBox,
-                                onCheckedChange = {
-                                hiphopBox = it
-                            })
-                            Text(
-                                text = MusicGenre.Pop.name,
-                                color = Color.Black
-                            )
-                            Checkbox(checked = popBox,
-                                onCheckedChange = {
-                                popBox = it
-                            })
-                            Text(
-                                text = MusicGenre.Rock.name,
-                                color = Color.Black
-                            )
-                            Checkbox(checked = rockBox,
-                                onCheckedChange = {
-                                rockBox = it
-                            })
                         }
                     }
 
