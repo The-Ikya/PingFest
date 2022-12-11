@@ -154,6 +154,21 @@ fun GenreDialog(onDismiss: () -> Unit){
     var rockBox: Boolean by remember {
         mutableStateOf(true)
     }
+    var discoBox: Boolean by remember {
+        mutableStateOf(true)
+    }
+    var countryBox: Boolean by remember {
+        mutableStateOf(true)
+    }
+    var electroBox: Boolean by remember {
+        mutableStateOf(true)
+    }
+    var hiphopBox: Boolean by remember {
+        mutableStateOf(true)
+    }
+    var popBox: Boolean by remember {
+        mutableStateOf(true)
+    }
             Dialog(
                 content = {
                     Surface() {
@@ -166,36 +181,36 @@ fun GenreDialog(onDismiss: () -> Unit){
                                 text = MusicGenre.Country.name,
                                 color = Color.Black,
                             )
-                            Checkbox(checked = rockBox, onCheckedChange = {
-                                rockBox = it
+                            Checkbox(checked = countryBox, onCheckedChange = {
+                                countryBox = it
                             })
                             Text(
                                 text = MusicGenre.Disco.name,
                                 color = Color.Black
                             )
-                            Checkbox(checked = rockBox, onCheckedChange = {
-                                rockBox = it
+                            Checkbox(checked = discoBox, onCheckedChange = {
+                                discoBox = it
                             })
                             Text(
                                 text = MusicGenre.Electro.name,
                                 color = Color.Black
                             )
-                            Checkbox(checked = rockBox, onCheckedChange = {
-                                rockBox = it
+                            Checkbox(checked = electroBox, onCheckedChange = {
+                                electroBox = it
                             })
                             Text(
                                 text = MusicGenre.Hiphop.name,
                                 color = Color.Black
                             )
-                            Checkbox(checked = rockBox, onCheckedChange = {
-                                rockBox = it
+                            Checkbox(checked = hiphopBox, onCheckedChange = {
+                                hiphopBox = it
                             })
                             Text(
                                 text = MusicGenre.Pop.name,
                                 color = Color.Black
                             )
-                            Checkbox(checked = rockBox, onCheckedChange = {
-                                rockBox = it
+                            Checkbox(checked = popBox, onCheckedChange = {
+                                popBox = it
                             })
                             Text(
                                 text = MusicGenre.Rock.name,
