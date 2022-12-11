@@ -25,6 +25,7 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import pfa.technipixl.pingfest.NavBar
 import pfa.technipixl.pingfest.NavGraphs
 import pfa.technipixl.pingfest.R
+import pfa.technipixl.pingfest.model.MusicGenre
 
 @Composable
 fun FilterScreenContent(
@@ -156,12 +157,48 @@ fun GenreDialog(onDismiss: () -> Unit){
             Dialog(
                 content = {
                     Surface() {
-                        Row(
-                            horizontalArrangement = Arrangement.SpaceBetween,
+                        Column(
+                            verticalArrangement = Arrangement.SpaceBetween,
                             modifier = Modifier.fillMaxWidth()
                         ) {
+
                             Text(
-                                text = "Rock",
+                                text = MusicGenre.Country.name,
+                                color = Color.Black,
+                            )
+                            Checkbox(checked = rockBox, onCheckedChange = {
+                                rockBox = it
+                            })
+                            Text(
+                                text = MusicGenre.Disco.name,
+                                color = Color.Black
+                            )
+                            Checkbox(checked = rockBox, onCheckedChange = {
+                                rockBox = it
+                            })
+                            Text(
+                                text = MusicGenre.Electro.name,
+                                color = Color.Black
+                            )
+                            Checkbox(checked = rockBox, onCheckedChange = {
+                                rockBox = it
+                            })
+                            Text(
+                                text = MusicGenre.Hiphop.name,
+                                color = Color.Black
+                            )
+                            Checkbox(checked = rockBox, onCheckedChange = {
+                                rockBox = it
+                            })
+                            Text(
+                                text = MusicGenre.Pop.name,
+                                color = Color.Black
+                            )
+                            Checkbox(checked = rockBox, onCheckedChange = {
+                                rockBox = it
+                            })
+                            Text(
+                                text = MusicGenre.Rock.name,
                                 color = Color.Black
                             )
                             Checkbox(checked = rockBox, onCheckedChange = {
