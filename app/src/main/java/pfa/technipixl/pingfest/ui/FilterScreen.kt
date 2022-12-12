@@ -1,5 +1,6 @@
 package pfa.technipixl.pingfest.ui.theme
 
+import android.icu.text.CaseMap.Title
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.gestures.Orientation
@@ -9,6 +10,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.selectable
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowRight
@@ -156,33 +158,35 @@ fun FilterScreen(navigator: DestinationsNavigator, modifier: Modifier = Modifier
 
 @Composable
 fun GenreDialog(onDismiss: () -> Unit){
+    var checkedBox by remember {
+        mutableStateOf(MusicGenre.values())
+    }
             Dialog(
                 content = {
-                    Surface() {
+                    Surface(shape = RoundedCornerShape(30.dp)) {
                         LazyColumn(
                             verticalArrangement = Arrangement.SpaceBetween,
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .fillMaxHeight(fraction = 0.5f)
-
                         ) {
-                            items(items = MusicGenre.values() ,itemContent = { item ->
+                            //Title()
+                            items(items = MusicGenre.values(), itemContent = { item ->
                                 var checkBox: Boolean by remember {
                                     mutableStateOf(true)
                                 }
                                 Text(
                                     text = item.name
                                 )
-                                Checkbox(checked = checkBox, onCheckedChange ={
+                                Checkbox(checked = checkBox, onCheckedChange = {
                                     checkBox = it
                                 })
-
                             })
-
                         }
-                    }
+                        }
 
-                }, onDismissRequest = { onDismiss() },
+                }, onDismissRequest = {
+                    onDismiss() },
                 properties = DialogProperties(
                     dismissOnClickOutside = true,
                     dismissOnBackPress = true
