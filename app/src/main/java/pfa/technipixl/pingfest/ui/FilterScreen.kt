@@ -1,6 +1,5 @@
 package pfa.technipixl.pingfest.ui.theme
 
-
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.gestures.Orientation
@@ -160,18 +159,23 @@ fun GenreDialog(onDismiss: () -> Unit){
             Dialog(
                 content = {
                     Surface() {
-                        LazyColumn(verticalArrangement = Arrangement.SpaceBetween,
+                        LazyColumn(
+                            verticalArrangement = Arrangement.SpaceBetween,
                             modifier = Modifier
                                 .fillMaxWidth()
+                                .fillMaxHeight(fraction = 0.5f)
+
                         ) {
-                            items(items = MusicGenre.values(), itemContent = { item ->
+                            items(items = MusicGenre.values() ,itemContent = { item ->
                                 var checkBox: Boolean by remember {
                                     mutableStateOf(true)
                                 }
                                 Text(
                                     text = item.name
                                 )
-                                Checkbox(checked = checkBox, onCheckedChange ={ checkBox = it })
+                                Checkbox(checked = checkBox, onCheckedChange ={
+                                    checkBox = it
+                                })
 
                             })
 
