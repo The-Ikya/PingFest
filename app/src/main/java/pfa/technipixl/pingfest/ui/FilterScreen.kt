@@ -6,6 +6,8 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.verticalScroll
@@ -154,86 +156,25 @@ fun FilterScreen(navigator: DestinationsNavigator, modifier: Modifier = Modifier
 
 
 @Composable
-fun GenreDialog(onDismiss: () -> Unit){
+fun GenreDialog(onDismiss: () -> Unit /*,optionsBoxes: List<MusicGenre>*/){
     // Boxes
-    var rockBox: Boolean by remember {
-        mutableStateOf(true)
-    }
-    var discoBox: Boolean by remember {
-        mutableStateOf(true)
-    }
-    var countryBox: Boolean by remember {
-        mutableStateOf(true)
-    }
-    var electroBox: Boolean by remember {
-        mutableStateOf(true)
-    }
-    var hiphopBox: Boolean by remember {
-        mutableStateOf(true)
-    }
-    var popBox: Boolean by remember {
-        mutableStateOf(true)
-    }
+    /*var checkedBox by remember {
+        mutableStateOf(optionsBoxes)
+    }*/
             Dialog(
                 content = {
                     Surface() {
-                        Column(
-                            verticalArrangement = Arrangement.SpaceBetween,
+                        LazyColumn(verticalArrangement = Arrangement.SpaceBetween,
                             modifier = Modifier
                                 .fillMaxWidth()
                         ) {
-                            ScrollableTabRow(selectedTabIndex = 1, Modifier.verticalScroll(
-                                rememberScrollState())) {
+                            items(MusicGenre.values(), itemContent = { item ->
                                 Text(
-                                    text = MusicGenre.Country.name,
-                                    color = Color.Black,
+                                    text = item.name
                                 )
-                                Checkbox(checked = countryBox,
-                                    onCheckedChange = {
-                                        countryBox = it
-                                    })
-                                Text(
-                                    text = MusicGenre.Disco.name,
-                                    color = Color.Black
-                                )
-                                Checkbox(checked = discoBox,
-                                    onCheckedChange = {
-                                        discoBox = it
-                                    })
-                                Text(
-                                    text = MusicGenre.Electro.name,
-                                    color = Color.Black
-                                )
-                                Checkbox(checked = electroBox,
-                                    onCheckedChange = {
-                                        electroBox = it
-                                    })
-                                Text(
-                                    text = MusicGenre.Hiphop.name,
-                                    color = Color.Black
-                                )
-                                Checkbox(checked = hiphopBox,
-                                    onCheckedChange = {
-                                        hiphopBox = it
-                                    })
-                                Text(
-                                    text = MusicGenre.Pop.name,
-                                    color = Color.Black
-                                )
-                                Checkbox(checked = popBox,
-                                    onCheckedChange = {
-                                        popBox = it
-                                    })
-                                Text(
-                                    text = MusicGenre.Rock.name,
-                                    color = Color.Black
-                                )
-                                Checkbox(checked = rockBox,
-                                    onCheckedChange = {
-                                        rockBox = it
-                                    })
-                            }
-
+                                /*Checkbox(checked = MusicGenre.values().first(), onCheckedChange = {optionsBoxes.contains(item)})
+                            })*/
+                            })
                         }
                     }
 
