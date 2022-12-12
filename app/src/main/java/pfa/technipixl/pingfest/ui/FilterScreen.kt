@@ -156,11 +156,7 @@ fun FilterScreen(navigator: DestinationsNavigator, modifier: Modifier = Modifier
 
 
 @Composable
-fun GenreDialog(onDismiss: () -> Unit /*,optionsBoxes: List<MusicGenre>*/){
-    // Boxes
-    /*var checkedBox by remember {
-        mutableStateOf(optionsBoxes)
-    }*/
+fun GenreDialog(onDismiss: () -> Unit){
             Dialog(
                 content = {
                     Surface() {
@@ -168,13 +164,17 @@ fun GenreDialog(onDismiss: () -> Unit /*,optionsBoxes: List<MusicGenre>*/){
                             modifier = Modifier
                                 .fillMaxWidth()
                         ) {
-                            items(MusicGenre.values(), itemContent = { item ->
+                            items(items = MusicGenre.values(), itemContent = { item ->
+                                var checkBox: Boolean by remember {
+                                    mutableStateOf(true)
+                                }
                                 Text(
                                     text = item.name
                                 )
-                                /*Checkbox(checked = MusicGenre.values().first(), onCheckedChange = {optionsBoxes.contains(item)})
-                            })*/
+                                Checkbox(checked = checkBox, onCheckedChange ={ checkBox = it })
+
                             })
+
                         }
                     }
 
