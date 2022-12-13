@@ -5,7 +5,6 @@ import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
 import pfa.technipixl.pingfest.network.FirebaseAuthService
 
 object AppUser {
@@ -16,15 +15,17 @@ object AppUser {
 	private var sharedPreferences: SharedPreferences? = null
 	private var firstTimeOpening: Boolean = true
 
-	private var _connectedUser: MutableState<ParticipatorResult.Participator?> = mutableStateOf(null)
-	val connectedUser: State<ParticipatorResult.Participator?> get() = _connectedUser
+	private lateinit var _currentUser: MutableState<ParticipatorResult.Participator>
+	val currentUser: State<ParticipatorResult.Participator> get() = _currentUser
 
-	fun isConnected() = connectedUser.value != null
+	fun isConnected() = !currentUser.value.idPeople.isNullOrEmpty()
 	fun isFirstTimeOpening() = firstTimeOpening
 
 	fun initUser(appContext: Context) {
 		sharedPreferences = appContext.getSharedPreferences(SHARED_PREFS, MODE_PRIVATE)
-		firstTimeOpening = sharedPreferences!!.getBoolean(FIRST_TIME_OPENING, true)
+		sharedPreferences?.let { data ->
+			firstTimeOpening = data.getBoolean(FIRST_TIME_OPENING, true)
+		}
 	}
 
 	fun hasFinishedOnboarding() {
@@ -44,9 +45,13 @@ object AppUser {
 		}
 	}
 
+	fun createNewUserFromCurrentSession(email: String, password: String) {
+
+	}
+
 	private fun fetchUserDataFromId(id: String) {
 		service.getUserData(id) { userData ->
-			userData?.let { _connectedUser.value = it }
+			userData?.let { _currentUser.value = it }
 		}
 	}
 }

@@ -18,6 +18,15 @@ class FirebaseAuthService {
 			}
 	}
 
+	fun createNewUser(email: String, password: String, onSuccessHandler: (String) -> Unit) {
+		authService.createUserWithEmailAndPassword(email, password)
+			.addOnSuccessListener { result ->
+				result.user?.let { user ->
+					onSuccessHandler(user.uid)
+				}
+			}
+	}
+
 	fun getUserData(id: String, onSuccessHandler: (ParticipatorResult.Participator?) -> Unit) {
 		storeService.collection("UserData")
 			.whereEqualTo("idPeople", id)
