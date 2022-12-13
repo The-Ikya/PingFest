@@ -43,8 +43,8 @@ class MainActivity : ComponentActivity() {
 fun NavigationSwitch(navigator: DestinationsNavigator) {
 	if (AppUser.isFirstTimeOpening()) {
 		OnboardingNavigation {
-			navigator.navigate(NavigationSwitchDestination())
 			AppUser.hasFinishedOnboarding()
+			navigator.navigate(NavigationSwitchDestination())
 		}
 	}
 	else {
