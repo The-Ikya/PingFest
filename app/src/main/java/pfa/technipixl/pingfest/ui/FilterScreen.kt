@@ -1,5 +1,6 @@
 package pfa.technipixl.pingfest.ui.theme
 
+import android.graphics.Paint.Align
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.gestures.Orientation
@@ -17,7 +18,12 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.HorizontalAlignmentLine
+import androidx.compose.ui.platform.InspectableModifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
@@ -95,6 +101,7 @@ fun FilterScreenContent(
                     text = text,
                     style = MaterialTheme.typography.bodySmall.merge(),
                     modifier = Modifier.padding(start = 16.dp)
+                        .align(Alignment.CenterVertically)
                 )
             }
         }
@@ -174,20 +181,29 @@ fun GenreDialog(onDismiss: () -> Unit){
                             verticalArrangement = Arrangement.SpaceBetween,
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .fillMaxHeight(fraction = 0.5f)
-                                .padding(top = 40.dp, bottom = 20.dp)
+                                .fillMaxHeight(fraction = 0.70f)
+                                .padding(top = 50.dp, bottom = 50.dp)
                         ) {
                             items(items = MusicGenre.values(), itemContent = { item ->
                                 var checkBox: Boolean by remember {
                                     mutableStateOf(true)
                                 }
+                                Divider(
+                                    Modifier
+                                        .padding(top = 10.dp, bottom = 10.dp,
+                                            start = 30.dp, end = 30.dp)
+                                        .alpha(0.8f))
                                 Row {
+                                    Spacer(modifier = Modifier.padding(10.dp))
                                     Text(
-                                        text = item.name
+                                        text = item.name,
+                                        Modifier.weight(8f)
+                                            .align(Alignment.CenterVertically)
                                     )
                                     Checkbox(checked = checkBox, onCheckedChange = {
                                         checkBox = it
-                                    })
+                                    },
+                                        Modifier.weight(2f))
                                 }
                             })
                         }
