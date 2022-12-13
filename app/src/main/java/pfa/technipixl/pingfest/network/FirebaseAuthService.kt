@@ -40,7 +40,7 @@ class FirebaseAuthService {
 			}
 	}
 
-	fun putUserData(user: ParticipatorResult.Participator, onSuccessHandler: (DocumentReference) -> Unit) {
+	fun putUserData(user: ParticipatorResult.Participator) {
 		val userData = hashMapOf(
 			"idPeople" to user.idPeople,
 			"login" to user.login,
@@ -53,8 +53,5 @@ class FirebaseAuthService {
 
 		storeService.collection("UserData")
 			.add(userData)
-			.addOnSuccessListener { result ->
-				onSuccessHandler(result)
-			}
 	}
 }

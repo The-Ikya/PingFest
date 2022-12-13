@@ -5,6 +5,7 @@ import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
 import pfa.technipixl.pingfest.network.FirebaseAuthService
 
 object AppUser {
@@ -15,8 +16,22 @@ object AppUser {
 	private var sharedPreferences: SharedPreferences? = null
 	private var firstTimeOpening: Boolean = true
 
-	private lateinit var _currentUser: MutableState<ParticipatorResult.Participator>
+	private var _currentUser: MutableState<ParticipatorResult.Participator>
 	val currentUser: State<ParticipatorResult.Participator> get() = _currentUser
+	var currentSettings = mutableStateOf(FiltersValues())
+
+	init {
+		val user = ParticipatorResult.Participator(
+			album = mutableListOf(),
+			email = null,
+			idPeople = null,
+			login = null,
+			partyList = mutableListOf(),
+			friendList = mutableListOf(),
+			photo = null
+		)
+		_currentUser = mutableStateOf(user)
+	}
 
 	fun isConnected() = !currentUser.value.idPeople.isNullOrEmpty()
 	fun isFirstTimeOpening() = firstTimeOpening
@@ -37,7 +52,7 @@ object AppUser {
 		firstTimeOpening = false
 	}
 
-	fun connect(email: String, password: String) {
+	fun connectUser(email: String, password: String) {
 		service.connectUser(email, password) { result ->
 			result.user?.let { user ->
 				fetchUserDataFromId(user.uid)
@@ -46,7 +61,10 @@ object AppUser {
 	}
 
 	fun createNewUserFromCurrentSession(email: String, password: String) {
-
+		service.createNewUser(email, password) { userID ->
+			_currentUser.value.idPeople = userID
+			service.putUserData(currentUser.value)
+		}
 	}
 
 	private fun fetchUserDataFromId(id: String) {
