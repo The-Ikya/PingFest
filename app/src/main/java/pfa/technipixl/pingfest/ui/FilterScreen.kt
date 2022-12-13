@@ -1,6 +1,5 @@
 package pfa.technipixl.pingfest.ui.theme
 
-import android.icu.text.CaseMap.Title
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.gestures.Orientation
@@ -21,8 +20,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
@@ -164,23 +165,30 @@ fun GenreDialog(onDismiss: () -> Unit){
             Dialog(
                 content = {
                     Surface(shape = RoundedCornerShape(30.dp)) {
+                        Text(text = "Genres préférés",
+                        Modifier.padding(15.dp),
+                        style = MaterialTheme.typography.headlineLarge)
+                        //Spacer(modifier = )
+
                         LazyColumn(
                             verticalArrangement = Arrangement.SpaceBetween,
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .fillMaxHeight(fraction = 0.5f)
+                                .padding(top = 40.dp, bottom = 20.dp)
                         ) {
-                            //Title()
                             items(items = MusicGenre.values(), itemContent = { item ->
                                 var checkBox: Boolean by remember {
                                     mutableStateOf(true)
                                 }
-                                Text(
-                                    text = item.name
-                                )
-                                Checkbox(checked = checkBox, onCheckedChange = {
-                                    checkBox = it
-                                })
+                                Row {
+                                    Text(
+                                        text = item.name
+                                    )
+                                    Checkbox(checked = checkBox, onCheckedChange = {
+                                        checkBox = it
+                                    })
+                                }
                             })
                         }
                         }
