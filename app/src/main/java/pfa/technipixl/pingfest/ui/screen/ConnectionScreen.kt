@@ -1,20 +1,14 @@
 package pfa.technipixl.pingfest.ui.screen
 
 
-import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.LocalOverscrollConfiguration
-import androidx.compose.foundation.background
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material.SnackbarDefaults.backgroundColor
+import androidx.compose.material3.*
 
 
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
-
-import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
@@ -84,6 +78,19 @@ fun TabBarItem(title:String, modifier: Modifier=Modifier, isSelected :Boolean = 
     }
 }
 
+@Composable 
+private fun ButtonConnection(){
+    Row(modifier = Modifier) {
+        Button(onClick = { /*TODO*/ }, colors = ButtonDefaults.buttonColors(Color.White), border = BorderStroke(1.dp, Color.Blue)) {
+            Text(text = "Annuler",color = Color.DarkGray)
+        }
+        Spacer(modifier = Modifier.padding(25.dp))
+        Button(onClick = { /*TODO*/ }) {
+            Text("Connexion")
+        }
+    }
+}
+
 
 
 @OptIn(ExperimentalPagerApi::class)
@@ -125,7 +132,7 @@ private fun PagerContent(pagerState: PagerState) {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun ViewOne() {
-    Column() {
+    Column {
         var text by remember { mutableStateOf("")}
         var password by rememberSaveable { mutableStateOf("")}
         val composition by rememberLottieComposition(
@@ -144,6 +151,8 @@ private fun ViewOne() {
             visualTransformation = PasswordVisualTransformation(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
         )
+
+        ButtonConnection()
     }
 }
 
