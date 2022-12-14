@@ -16,12 +16,17 @@ import com.ramcosta.composedestinations.DestinationsNavHost
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import pfa.technipixl.pingfest.destinations.FilterScreenDestination
-import pfa.technipixl.pingfest.destinations.GreetingDestination
+import pfa.technipixl.pingfest.destinations.NavigationSwitchDestination
+import pfa.technipixl.pingfest.model.AppUser
+import pfa.technipixl.pingfest.ui.onboarding.OnboardingNavigation
 import pfa.technipixl.pingfest.ui.theme.PingFestTheme
 
 class MainActivity : ComponentActivity() {
+
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
+
+		AppUser.initUser(applicationContext)
 
 		setContent {
 			PingFestTheme {
@@ -35,12 +40,22 @@ class MainActivity : ComponentActivity() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Destination(start = true)
 @Composable
-fun Greeting(navigator: DestinationsNavigator) {
-	Scaffold(
-		bottomBar = { NavBar(navigator) }
-	) {
-		Text(text = "Hello!",
-		modifier = Modifier.padding(it))
+fun NavigationSwitch(navigator: DestinationsNavigator) {
+	if (AppUser.isFirstTimeOpening()) {
+		OnboardingNavigation {
+			AppUser.hasFinishedOnboarding()
+			navigator.navigate(NavigationSwitchDestination())
+		}
+	}
+	else {
+		Scaffold(
+			bottomBar = { NavBar(navigator) }
+		) {
+			Text(
+				text = "Hello!",
+				modifier = Modifier.padding(it)
+			)
+		}
 	}
 }
 
@@ -52,8 +67,10 @@ fun NavBar(navigator: DestinationsNavigator) {
 			icon = { Icon(Icons.Filled.Home, contentDescription = "Home") },
 			label = { Text("Home") },
 			selected = selectedItem == 0,
-			onClick = { selectedItem = 0
-			navigator.navigate(GreetingDestination())}
+			onClick = {
+				selectedItem = 0
+				navigator.navigate(NavigationSwitchDestination())
+			}
 		)
 		NavigationBarItem(
 			icon = { Icon(Icons.Filled.Stars, contentDescription = "Evènements") },
@@ -71,10 +88,10 @@ fun NavBar(navigator: DestinationsNavigator) {
 			icon = { Icon(Icons.Filled.Settings, contentDescription = "Settings") },
 			label = { Text("Settings") },
 			selected = selectedItem == 3,
-			onClick = { selectedItem = 3
-					  navigator.navigate(FilterScreenDestination())
-					  },
-
+			onClick = {
+				selectedItem = 3
+				navigator.navigate(FilterScreenDestination())
+			}
 		)
 	}
 }

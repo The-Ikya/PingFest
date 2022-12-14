@@ -92,6 +92,7 @@ dependencies {
     implementation 'io.github.raamcosta.compose-destinations:core:1.1.2-beta'
     ksp 'io.github.raamcosta.compose-destinations:ksp:1.1.2-beta'
 
+
     // Accompanist
     implementation "com.google.accompanist:accompanist-pager:0.28.0"
     implementation "com.google.accompanist:accompanist-permissions:0.28.0"
@@ -99,6 +100,9 @@ dependencies {
     // FireBase
     implementation platform('com.google.firebase:firebase-bom:31.1.0')
     implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.google.firebase:firebase-auth-ktx'
+    implementation 'com.google.firebase:firebase-storage-ktx'
+    implementation 'com.google.firebase:firebase-firestore-ktx'
 
     // Coil (asyncImage)
     implementation("io.coil-kt:coil-compose:2.2.2")

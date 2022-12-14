@@ -1,18 +1,15 @@
 package pfa.technipixl.pingfest.model
 
-
-import com.google.gson.annotations.SerializedName
-
 data class ParticipatorResult(
-    val results: List<Result>
+    val results: List<Participator>
 ) {
-    data class Result(
-        val album: List<String>,
-        val email: String, // {{faker 'internet.email'}}
-        val idPeople: String, // {{faker 'datatype.uuid'}}
-        val login: String, // {{faker 'music.genre'}}{{faker 'word.adjective'}}
-        val partyList: List<String>,
-        val password: String, // {{faker 'random.alphaNumeric' 10}}
-        val photo: String // {{faker 'internet.avatar'}}
+    data class Participator(
+        val album: MutableList<String> = mutableListOf(),
+        var email: String? = null, // {{faker 'internet.email'}}
+        var idPeople: String? = null, // {{faker 'datatype.uuid'}}
+        var login: String? = null, // {{faker 'music.genre'}}{{faker 'word.adjective'}}
+        val partyList: MutableList<String> = mutableListOf(),
+        val friendList: MutableList<String> = mutableListOf(), // {{faker 'random.alphaNumeric' 10}}
+        var photo: String? = null, // {{faker 'internet.avatar'}}
     )
 }

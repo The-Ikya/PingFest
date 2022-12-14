@@ -21,21 +21,17 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 import pfa.technipixl.pingfest.model.MusicGenre
 
 @Composable
-fun OnboardingScreen3(modifier: Modifier = Modifier) {
+fun OnboardingScreen3(
+	modifier: Modifier = Modifier,
+	goToHomeScreen: () -> Unit
+) {
 	Column(
 		modifier = modifier,
 	) {
-		Box(
-			modifier = Modifier
-				.fillMaxWidth()
-				.fillMaxHeight(0.32f),
-			contentAlignment = Alignment.Center
-		) {
-			val composition by rememberLottieComposition(
-				spec = LottieCompositionSpec.Url("https://assets10.lottiefiles.com/packages/lf20_rsqhglyn.json")
-			)
-			LottieAnimation(composition = composition, iterations = LottieConstants.IterateForever, contentScale = ContentScale.FillWidth)
-		}
+		LottieAnimationFrom(
+			modifier = Modifier.fillMaxHeight(0.32f),
+			url = "https://assets10.lottiefiles.com/packages/lf20_rsqhglyn.json"
+		)
 
 		Column(
 			modifier = Modifier
@@ -59,9 +55,7 @@ fun OnboardingScreen3(modifier: Modifier = Modifier) {
 			ElevatedButton(
 				modifier = Modifier
 					.fillMaxWidth(),
-				onClick = {
-
-				}
+				onClick = { goToHomeScreen() }
 			) {
 				Text("C'est partis !")
 			}
@@ -106,5 +100,5 @@ fun PrefListCell(
 @Preview
 @Composable
 fun OnboardingScreen3Preview() {
-	OnboardingScreen3()
+	OnboardingScreen3(goToHomeScreen = {})
 }

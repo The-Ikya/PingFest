@@ -11,6 +11,7 @@ import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
+import pfa.technipixl.pingfest.ui.onboarding.LottieAnimationFrom
 import pfa.technipixl.pingfest.ui.onboarding.OnboardingDescriptionText
 
 @Composable
@@ -18,17 +19,10 @@ fun OnboardingScreen1(modifier: Modifier = Modifier) {
 	Column(
 		modifier = modifier,
 	) {
-		Box(
-			modifier = Modifier
-				.fillMaxWidth()
-				.fillMaxHeight(0.3f),
-			contentAlignment = Alignment.Center
-		) {
-			val composition by rememberLottieComposition(
-				spec = LottieCompositionSpec.Url("https://assets6.lottiefiles.com/packages/lf20_6aYlBl.json")
-			)
-			LottieAnimation(composition = composition, iterations = LottieConstants.IterateForever)
-		}
+		LottieAnimationFrom(
+			modifier = Modifier.fillMaxHeight(0.3f),
+			url = "https://assets6.lottiefiles.com/packages/lf20_6aYlBl.json"
+		)
 
 		Column(
 			modifier = Modifier

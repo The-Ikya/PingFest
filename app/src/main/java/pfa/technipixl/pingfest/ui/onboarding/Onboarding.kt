@@ -10,13 +10,19 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.airbnb.lottie.compose.LottieAnimation
+import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.LottieConstants
+import com.airbnb.lottie.compose.rememberLottieComposition
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
@@ -25,7 +31,8 @@ import pfa.technipixl.pingfest.ui.OnboardingScreen1
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun OnboardingNavigation(
-	modifier: Modifier = Modifier
+	modifier: Modifier = Modifier,
+	navigateToHomeScreen: () -> Unit
 ) {
 	val pagerState = rememberPagerState()
 
@@ -34,7 +41,8 @@ fun OnboardingNavigation(
 			.fillMaxSize(),
 	) {
 		OnboardingPageBar(
-			page = pagerState.currentPage
+			page = pagerState.currentPage,
+			skip = navigateToHomeScreen
 		)
 		HorizontalPager(count = 3, state = pagerState) { page ->
 			val innerModifier = Modifier
@@ -50,7 +58,8 @@ fun OnboardingNavigation(
 					modifier = innerModifier
 				)
 				else -> OnboardingScreen3(
-					modifier = innerModifier
+					modifier = innerModifier,
+					goToHomeScreen = navigateToHomeScreen
 				)
 			}
 
@@ -61,7 +70,8 @@ fun OnboardingNavigation(
 @Composable
 fun OnboardingPageBar(
 	modifier: Modifier = Modifier,
-	page: Int
+	page: Int,
+	skip: () -> Unit
 ) {
 	Row(
 		modifier = modifier
@@ -76,9 +86,7 @@ fun OnboardingPageBar(
 			}
 		}
 		TextButton(
-			onClick = {
-				// TODO
-			}
+			onClick = { skip() }
 		) {
 			Text(text = "Skip")
 		}
@@ -144,8 +152,29 @@ fun Indicator(isSelected: Boolean) {
 	}
 }
 
+@Composable
+fun LottieAnimationFrom(
+	modifier: Modifier = Modifier,
+	url: String
+) {
+	Box(
+		modifier = modifier
+			.fillMaxWidth(),
+		contentAlignment = Alignment.Center
+	) {
+		val composition by rememberLottieComposition(
+			spec = LottieCompositionSpec.Url(url)
+		)
+		LottieAnimation(
+			composition = composition,
+			iterations = LottieConstants.IterateForever,
+			contentScale = ContentScale.FillWidth
+		)
+	}
+}
+
 @Preview
 @Composable
 fun OnboardingNavigationPreview() {
-	OnboardingNavigation()
+	OnboardingNavigation(navigateToHomeScreen = {})
 }
