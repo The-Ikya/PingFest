@@ -50,6 +50,9 @@ fun FilterScreenContent(
     var isDialogShown by remember {
         mutableStateOf(false)
     }
+    var isFilterDialogShown by remember {
+        mutableStateOf(false)
+    }
 
     var sliderPosition by remember { mutableStateOf(0f) }
     val radioOptions = listOf("0 à 150", "150 à 300", "300 à 700", "Plus de 750")
@@ -59,6 +62,9 @@ fun FilterScreenContent(
 
         if (isDialogShown) {
             GenreDialog(onDismiss = { isDialogShown = false })
+        }
+        if (isFilterDialogShown) {
+            FilterEventsDialog(onDismiss = { isFilterDialogShown = false })
         }
 
         Image(
@@ -135,9 +141,7 @@ fun FilterScreenContent(
         }
         Button(
             modifier = Modifier.align(Alignment.Start),
-            onClick = {
-                Toast.makeText(context, "This is a Toast. Yay!", Toast.LENGTH_LONG).show()
-            },
+            onClick = { isFilterDialogShown = true },
             colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent)
         ) {
             Row(
@@ -178,16 +182,14 @@ fun FilterScreen(navigator: DestinationsNavigator, modifier: Modifier = Modifier
 
 @Composable
 fun GenreDialog(onDismiss: () -> Unit) {
-    val context = LocalContext.current
-    var checkedBox by remember {
-        mutableStateOf(MusicGenre.values())
-    }
     AlertDialog(
-        onDismissRequest ={ onDismiss()},
-        confirmButton = { TextButton(onClick = { onDismiss() }) {//changer le onDismiss par l'enregistrement
-            Text(text = "Ok")
-        }},
-        modifier = Modifier.fillMaxHeight(fraction = 0.70f),
+        onDismissRequest = { onDismiss() },
+        confirmButton = {
+            TextButton(onClick = { onDismiss() }) {//changer le onDismiss par l'enregistrement
+                Text(text = "Ok")
+            }
+        },
+        modifier = Modifier.fillMaxHeight(fraction = 0.7f),
         title = {
             Text(
                 text = "Genres préférés",
@@ -209,8 +211,8 @@ fun GenreDialog(onDismiss: () -> Unit) {
                     Divider(
                         Modifier
                             .padding(
-                                top = 10.dp, bottom = 10.dp,
-                                start = 30.dp, end = 30.dp
+                                vertical = 10.dp,
+                                horizontal = 30.dp
                             )
                             .alpha(0.8f)
                     )
@@ -220,10 +222,12 @@ fun GenreDialog(onDismiss: () -> Unit) {
                             text = item.name,
                             Modifier
                                 .weight(1f)
-                                .align(Alignment.CenterVertically)
+                                .align(Alignment.CenterVertically),
+                            style = MaterialTheme.typography.bodyLarge
                         )
                         Checkbox(
-                            checked = checkBox, onCheckedChange = {
+                            checked = checkBox,
+                            onCheckedChange = {
                                 checkBox = it
                             },
                         )
@@ -232,65 +236,38 @@ fun GenreDialog(onDismiss: () -> Unit) {
             }
         },
     )
-    /*Dialog(
-        content = {
-            Surface(shape = RoundedCornerShape(30.dp)) {
-                Text(
-                    text = "Genres préférés",
-                    Modifier.padding(15.dp),
-                    style = MaterialTheme.typography.headlineLarge
-                )
-                LazyColumn(
-                    verticalArrangement = Arrangement.SpaceBetween,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .fillMaxHeight(fraction = 0.70f)
-                        .padding(top = 50.dp, bottom = 50.dp)
-                ) {
-                    items(items = MusicGenre.values(), itemContent = { item ->
-                        var checkBox: Boolean by remember {
-                            mutableStateOf(true)
-                        }
-                        Divider(
+}
+
+@Composable
+fun FilterEventsDialog(onDismiss: () -> Unit) {
+    AlertDialog(confirmButton = {}, onDismissRequest = { onDismiss() },
+        title = {
+            Text(
+                text = "Trier les évènements par:",
+                style = MaterialTheme.typography.headlineSmall
+            )
+        },
+        text = {
+            Column(
+                verticalArrangement = Arrangement.SpaceBetween,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 5.dp)
+            ) {
+                MusicGenre.values().forEach { item ->
+                    Row {
+                        TextButton(onClick = {}) {
+                            Text(text = item.name,
+                            style = MaterialTheme.typography.bodyLarge)
                             Modifier
-                                .padding(
-                                    top = 10.dp, bottom = 10.dp,
-                                    start = 30.dp, end = 30.dp
-                                )
-                                .alpha(0.8f)
-                        )
-                        Row {
-                            Spacer(modifier = Modifier.padding(10.dp))
-                            Text(
-                                text = item.name,
-                                Modifier
-                                    .weight(8f)
-                                    .align(Alignment.CenterVertically)
-                            )
-                            Checkbox(
-                                checked = checkBox, onCheckedChange = {
-                                    checkBox = it
-                                },
-                                Modifier.weight(2f)
-                            )
-                        }
-                    })
-                }
-                Row(horizontalArrangement = Arrangement.End,
-                modifier = Modifier.fillMaxWidth()){
-                    TextButton(onClick = {Toast.makeText(context, "This is a Toast. Yay!", Toast.LENGTH_LONG).show()}) {
-                        Text("Ok")
+                                .weight(1f)
+                                .align(Alignment.CenterVertically)
+                    }
                     }
                 }
             }
-        }, onDismissRequest = {
-            onDismiss()
-        },
-        properties = DialogProperties(
-            dismissOnClickOutside = true,
-            dismissOnBackPress = true
-        )
-    )*/
+        }
+    )
 }
 
 @Preview
