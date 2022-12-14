@@ -10,14 +10,14 @@ class FirebaseAuthService {
 	private val authService = Firebase.auth
 	private val storeService = Firebase.firestore
 
-	fun connectUser(email: String, password: String, onSuccessHandler: (AuthResult) -> Unit) {
+	suspend fun connectUser(email: String, password: String, onSuccessHandler: (AuthResult) -> Unit) {
 		authService.signInWithEmailAndPassword(email, password)
 			.addOnSuccessListener { result ->
 				onSuccessHandler(result)
 			}
 	}
 
-	fun createNewUser(email: String, password: String, onSuccessHandler: (String) -> Unit) {
+	suspend fun createNewUser(email: String, password: String, onSuccessHandler: (String) -> Unit) {
 		authService.createUserWithEmailAndPassword(email, password)
 			.addOnSuccessListener { result ->
 				result.user?.let { user ->
@@ -26,7 +26,7 @@ class FirebaseAuthService {
 			}
 	}
 
-	fun getUserData(id: String, onSuccessHandler: (ParticipatorResult.Participator?) -> Unit) {
+	suspend fun getUserData(id: String, onSuccessHandler: (ParticipatorResult.Participator?) -> Unit) {
 		storeService.collection("UserData")
 			.whereEqualTo("idPeople", id)
 			.get()
@@ -39,8 +39,11 @@ class FirebaseAuthService {
 			}
 	}
 
-	fun putUserData(user: ParticipatorResult.Participator) {
+	suspend fun putUserData(user: ParticipatorResult.Participator, onSuccessHandler: () -> Unit) {
 		storeService.collection("UserData")
 			.add(user)
+			.addOnSuccessListener {
+				onSuccessHandler()
+			}
 	}
 }

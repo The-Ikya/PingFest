@@ -5,6 +5,9 @@ import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import pfa.technipixl.pingfest.network.FirebaseAuthService
 
 object AppUser {
@@ -39,23 +42,36 @@ object AppUser {
 	}
 
 	fun connectUser(email: String, password: String) {
-		service.connectUser(email, password) { result ->
-			result.user?.let { user ->
-				fetchUserDataFromId(user.uid)
+		CoroutineScope(Dispatchers.IO).launch {
+			service.connectUser(email, password) { result ->
+				result.user?.let { user ->
+					fetchUserDataFromId(user.uid)
+				}
 			}
 		}
 	}
 
 	fun createNewUserFromCurrentSession(email: String, password: String) {
-		service.createNewUser(email, password) { userID ->
-			_currentUser.value.idPeople = userID
-			service.putUserData(currentUser.value)
+		CoroutineScope(Dispatchers.IO).launch {
+			service.createNewUser(email, password) { userID ->
+				commitNewUserData(userID)
+			}
+		}
+	}
+
+	private fun commitNewUserData(userID: String) {
+		CoroutineScope(Dispatchers.IO).launch {
+			service.putUserData(currentUser.value) {
+				_currentUser.value.idPeople = userID
+			}
 		}
 	}
 
 	private fun fetchUserDataFromId(id: String) {
-		service.getUserData(id) { userData ->
-			userData?.let { _currentUser.value = it }
+		CoroutineScope(Dispatchers.IO).launch {
+			service.getUserData(id) { userData ->
+				userData?.let { _currentUser.value = it }
+			}
 		}
 	}
 }
