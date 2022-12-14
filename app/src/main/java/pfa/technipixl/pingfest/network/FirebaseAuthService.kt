@@ -2,7 +2,6 @@ package pfa.technipixl.pingfest.network
 
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import pfa.technipixl.pingfest.model.ParticipatorResult
@@ -41,17 +40,7 @@ class FirebaseAuthService {
 	}
 
 	fun putUserData(user: ParticipatorResult.Participator) {
-		val userData = hashMapOf(
-			"idPeople" to user.idPeople,
-			"login" to user.login,
-			"email" to user.email,
-			"photo" to user.photo,
-			"partyList" to user.partyList,
-			"album" to user.album,
-			"friendList" to user.friendList
-		)
-
 		storeService.collection("UserData")
-			.add(userData)
+			.add(user)
 	}
 }
