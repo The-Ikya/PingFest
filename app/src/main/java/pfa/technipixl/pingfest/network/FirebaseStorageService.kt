@@ -7,9 +7,14 @@ import com.google.firebase.storage.ktx.storage
 class FirebaseStorageService {
 	private val storageRef = Firebase.storage.reference
 
-	suspend fun getStoredImage(imgId: String, onSuccessHandler: (Uri) -> Unit) {
-		storageRef.child(imgId).downloadUrl.addOnSuccessListener {
+	suspend fun getStoredImage(path: String, onSuccessHandler: (Uri) -> Unit) {
+		storageRef.child(path).downloadUrl.addOnSuccessListener {
 			onSuccessHandler(it)
 		}
+	}
+
+	suspend fun storeImage(path: String, imageFile: Uri) {
+		storageRef.child(path).putFile(imageFile)
+
 	}
 }
