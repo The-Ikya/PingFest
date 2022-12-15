@@ -8,11 +8,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import pfa.technipixl.pingfest.model.FestResults
-import pfa.technipixl.pingfest.network.FestApiServiceImpl
+import pfa.technipixl.pingfest.network.FirestoreService
 
 class EventsScreenViewModel : ViewModel() {
 
-	private val service = FestApiServiceImpl()
+	private val service = FirestoreService()
 
 	enum class EventsViewMode {
 		Map,
@@ -35,10 +35,8 @@ class EventsScreenViewModel : ViewModel() {
 
 	fun fetchEvents() {
 		viewModelScope.launch {
-			service.getFest().also { result ->
-				if (result.isSuccessful) {
-					result.body()?.results?.let { _eventList = it }
-				}
+			service.getFestsData {
+				_eventList = it
 			}
 		}
 	}

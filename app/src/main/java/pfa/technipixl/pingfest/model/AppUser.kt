@@ -10,16 +10,16 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import pfa.technipixl.pingfest.network.FirebaseAuthService
 
-object AppUser {
-	private const val FIRST_TIME_OPENING = "pfa.technipixl.pingfest.first_time_opening"
-	private const val SHARED_PREFS = "pfa.technipixl.pingfest.shared_preferences"
+private const val FIRST_TIME_OPENING = "pfa.technipixl.pingfest.first_time_opening"
+private const val SHARED_PREFS = "pfa.technipixl.pingfest.shared_preferences"
 
+object AppUser {
 	private val service = FirebaseAuthService()
 	private var sharedPreferences: SharedPreferences? = null
 	private var firstTimeOpening: Boolean = true
 
-	private var _currentUser = mutableStateOf(ParticipatorResult.Participator())
-	val currentUser: State<ParticipatorResult.Participator> get() = _currentUser
+	private var _currentUser = mutableStateOf(Participator())
+	val currentUser: State<Participator> get() = _currentUser
 	var currentSettings = mutableStateOf(FiltersValues())
 
 	fun isConnected() = !currentUser.value.idPeople.isNullOrEmpty()
@@ -41,28 +41,26 @@ object AppUser {
 		firstTimeOpening = false
 	}
 
-	fun connectUser(email: String, password: String) {
-		CoroutineScope(Dispatchers.IO).launch {
-			service.connectUser(email, password) { result ->
-				result.user?.let { user ->
-					fetchUserDataFromId(user.uid)
-				}
+	suspend fun connectUser(email: String, password: String) {
+		service.connectUser(email, password) { result ->
+			result.user?.let { user ->
+				fetchUserDataFromId(user.uid)
 			}
 		}
 	}
 
-	fun createNewUserFromCurrentSession(email: String, password: String) {
-		CoroutineScope(Dispatchers.IO).launch {
-			service.createNewUser(email, password) { userID ->
-				commitNewUserData(userID)
-			}
+	suspend fun createNewUserFromCurrentSession(email: String, password: String) {
+		service.createNewUser(email, password) { userID ->
+			val newUser = currentUser.value.copy()
+			newUser.idPeople = userID
+			commitNewUserData(newUser)
 		}
 	}
 
-	private fun commitNewUserData(userID: String) {
+	private fun commitNewUserData(newUser: Participator) {
 		CoroutineScope(Dispatchers.IO).launch {
-			service.putUserData(currentUser.value) {
-				_currentUser.value.idPeople = userID
+			service.putUserData(newUser) {
+				_currentUser.value.idPeople = newUser.idPeople
 			}
 		}
 	}
@@ -70,7 +68,7 @@ object AppUser {
 	private fun fetchUserDataFromId(id: String) {
 		CoroutineScope(Dispatchers.IO).launch {
 			service.getUserData(id) { userData ->
-				userData?.let { _currentUser.value = it }
+				_currentUser.value = userData
 			}
 		}
 	}
