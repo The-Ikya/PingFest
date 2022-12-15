@@ -24,6 +24,7 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import pfa.technipixl.pingfest.NavBar
 import pfa.technipixl.pingfest.model.FestResults
 import pfa.technipixl.pingfest.viewmodels.EventsScreenViewModel
+import java.util.*
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Destination
@@ -128,7 +129,7 @@ fun EventListCell(
 					style = MaterialTheme.typography.titleMedium
 				)
 				Text(
-					text = event.dateDebut,
+					text = Date(event.dateDebut).toString(),
 					style = MaterialTheme.typography.labelSmall
 				)
 				Spacer(modifier = Modifier.weight(1f))

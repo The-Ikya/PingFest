@@ -18,6 +18,7 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import pfa.technipixl.pingfest.destinations.FilterScreenDestination
 import pfa.technipixl.pingfest.destinations.NavigationSwitchDestination
 import pfa.technipixl.pingfest.model.AppUser
+import pfa.technipixl.pingfest.model.Fest
 import pfa.technipixl.pingfest.ui.onboarding.OnboardingNavigation
 import pfa.technipixl.pingfest.ui.theme.PingFestTheme
 
@@ -27,6 +28,7 @@ class MainActivity : ComponentActivity() {
 		super.onCreate(savedInstanceState)
 
 		AppUser.initUser(applicationContext)
+		val festInit = Fest()
 
 		setContent {
 			PingFestTheme {
