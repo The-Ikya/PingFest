@@ -80,11 +80,13 @@ fun TabBarItem(title:String, modifier: Modifier=Modifier, isSelected :Boolean = 
 
 @Composable 
 private fun ButtonConnection(){
-    Row(modifier = Modifier) {
+    Row(modifier = Modifier
+        .fillMaxWidth(),
+    horizontalArrangement = Arrangement.Center) {
         Button(onClick = { /*TODO*/ }, colors = ButtonDefaults.buttonColors(Color.White), border = BorderStroke(1.dp, Color.Blue)) {
             Text(text = "Annuler",color = Color.DarkGray)
         }
-        Spacer(modifier = Modifier.padding(25.dp))
+        Spacer(modifier = Modifier.padding(30.dp))
         Button(onClick = { /*TODO*/ }) {
             Text("Connexion")
         }
@@ -132,7 +134,10 @@ private fun PagerContent(pagerState: PagerState) {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun ViewOne() {
-    Column {
+    Column(modifier = Modifier
+        .fillMaxWidth(),
+    verticalArrangement = Arrangement.Center,
+    horizontalAlignment = Alignment.CenterHorizontally) {
         var text by remember { mutableStateOf("")}
         var password by rememberSaveable { mutableStateOf("")}
         val composition by rememberLottieComposition(
@@ -148,11 +153,18 @@ private fun ViewOne() {
             value = password,
             onValueChange = {password = it},
             label = {Text("Mot de passe")},
+            // ajouter l'icon
             visualTransformation = PasswordVisualTransformation(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
         )
-
+        Spacer(modifier = Modifier.padding(top = 10.dp))
         ButtonConnection()
+        Row(modifier = Modifier
+            .fillMaxWidth()
+            .padding(end = 35.dp),
+            horizontalArrangement = Arrangement.End) {
+            Text(text = "Mot de passe oublié?", color = Color.Blue)
+        }
     }
 }
 
