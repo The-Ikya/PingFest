@@ -4,7 +4,7 @@ import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import pfa.technipixl.pingfest.model.ParticipatorResult
+import pfa.technipixl.pingfest.model.Participator
 
 class FirebaseAuthService {
 	private val authService = Firebase.auth
@@ -26,20 +26,17 @@ class FirebaseAuthService {
 			}
 	}
 
-	suspend fun getUserData(id: String, onSuccessHandler: (ParticipatorResult.Participator?) -> Unit) {
+	suspend fun getUserData(id: String, onSuccessHandler: (Participator) -> Unit) {
 		storeService.collection("UserData")
-			.whereEqualTo("idPeople", id)
+			.document(id)
 			.get()
 			.addOnSuccessListener { result ->
-				var user: ParticipatorResult.Participator? = null
-				for (document in result.documents) {
-					user = document.toObject(ParticipatorResult.Participator::class.java)
-				}
-				onSuccessHandler(user)
+				val user = result.toObject(Participator::class.java)
+				user?.let { onSuccessHandler(it) }
 			}
 	}
 
-	suspend fun putUserData(user: ParticipatorResult.Participator, onSuccessHandler: () -> Unit) {
+	suspend fun putUserData(user: Participator, onSuccessHandler: () -> Unit) {
 		storeService.collection("UserData")
 			.document(user.idPeople ?: "UNKNOWN")
 			.set(user)
