@@ -41,7 +41,8 @@ class FirebaseAuthService {
 
 	suspend fun putUserData(user: ParticipatorResult.Participator, onSuccessHandler: () -> Unit) {
 		storeService.collection("UserData")
-			.add(user)
+			.document(user.idPeople ?: "UNKNOWN")
+			.set(user)
 			.addOnSuccessListener {
 				onSuccessHandler()
 			}
