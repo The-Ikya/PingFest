@@ -171,8 +171,44 @@ private fun ViewOne() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun ViewTwo() {
-    Column() {
-
+    Column(modifier = Modifier
+        .fillMaxWidth(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally) {
+        var text by remember { mutableStateOf("")}
+        var password by rememberSaveable { mutableStateOf("")}
+        val composition by rememberLottieComposition(
+            spec =  LottieCompositionSpec.Url("https://lottiefiles.com/5482-connect")
+        )
+        LottieAnimation(composition = composition, iterations = LottieConstants.IterateForever)
+        OutlinedTextField(
+            value = text,
+            onValueChange = {text = it},
+            label = {Text("Nom utilisateur")}
+        )
+        OutlinedTextField(
+            value = text,
+            onValueChange = {text = it},
+            label = {Text("Email")}
+        )
+        OutlinedTextField(
+            value = password,
+            onValueChange = {password = it},
+            label = {Text("Mot de passe")},
+            // ajouter l'icon
+            visualTransformation = PasswordVisualTransformation(),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
+        )
+        OutlinedTextField(
+            value = password,
+            onValueChange = {password = it},
+            label = {Text("confirmer mot de passe")},
+            // ajouter l'icon
+            visualTransformation = PasswordVisualTransformation(),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
+        )
+        Spacer(modifier = Modifier.padding(top = 10.dp))
+        ButtonConnection()
 
     }
 }
