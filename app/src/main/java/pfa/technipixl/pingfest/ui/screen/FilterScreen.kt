@@ -1,19 +1,10 @@
-package pfa.technipixl.pingfest.ui.theme
+package pfa.technipixl.pingfest.ui.screen
 
-import android.graphics.Paint.Align
-import android.icu.text.CaseMap
-import android.icu.text.Transliterator.Position
-import android.widget.Toast
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.gestures.Orientation
-import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.selectable
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowRight
 import androidx.compose.material3.*
@@ -21,25 +12,15 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.HorizontalAlignmentLine
-import androidx.compose.ui.platform.InspectableModifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.Dialog
-import androidx.compose.ui.window.DialogProperties
-import com.ramcosta.composedestinations.DestinationsNavHost
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import pfa.technipixl.pingfest.NavBar
-import pfa.technipixl.pingfest.NavGraphs
 import pfa.technipixl.pingfest.R
 import pfa.technipixl.pingfest.model.MusicGenre
 
@@ -272,8 +253,7 @@ fun FilterEventsDialog(onDismiss: () -> Unit) {
 
 @Preview
 @Composable
-fun ConnectionScreenPreview() {
-    //FilterScreen()
-    GenreDialog({})
+fun FilterScreenContentPreview() {
+    FilterScreenContent()
 }
 
